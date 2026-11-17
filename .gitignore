@@ -1,0 +1,12 @@
+venv/
+venv_simple/
+*/venv/
+__pycache__/
+*.pyc
+*.egg-info/
+*.log
+graphify-out/
+_backup*/
+.claude/
+_formcheck.py
+_formout.txt

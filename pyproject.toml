@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mathocr"
+version = "1.0.0"
+description = "OCR de matemáticas: GUI de recorte de pantalla y CLI de lotes PDF -> Markdown/LaTeX."
+requires-python = ">=3.12"
+dependencies = [
+    # GUI (SimpleApp)
+    "PyQt6",
+    "pynput",
+    # Pipeline OCR (compartido SimpleApp + Tractor)
+    "pix2text",
+    "onnxruntime",
+    "pillow",
+    # Lotes (Tractor)
+    "PyMuPDF",
+    "tqdm",
+    "requests",
+]
+
+# Dos entrypoints independientes:
+#   - gui-scripts  -> en Windows genera MathOCRSimple.exe lanzado con pythonw (SIN consola).
+#   - scripts      -> MathOCRFull.exe normal con consola.
+# Instalar SIEMPRE en modo editable:  pip install -e .
+# (el paquete-puente mathocr_entry localiza SimpleApp/ y Tractor/ por ruta del repo).
+[project.gui-scripts]
+MathOCRSimple = "mathocr_entry.app:main"
+
+[project.scripts]
+MathOCRFull = "mathocr_entry.batch:main"
+
+[tool.setuptools]
+packages = ["mathocr_entry"]
